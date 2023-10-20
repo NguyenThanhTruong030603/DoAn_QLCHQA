@@ -149,16 +149,22 @@ namespace QLBANHANG
         {
             try
             {
-                command = connection.CreateCommand();
-                command.CommandText = "update tb_KhachHang set TenKH=N'" + txtTenKH.Text + "',GioiTinh=N'" + cbGT.Text + "',NamSinh=CAST('" + dtNamSinh.Text + "' AS DATE), DiaChi=N'" + txtDiaChi.Text + "',SDT='" + txtSDT.Text + "', Email=N'"+txtEmail.Text+"' where MaKH='" + txtMaKH.Text + "'";
-                DialogResult dr = MessageBox.Show("Bạn có muốn sửa thông tin khách hàng " + txtMaKH.Text + " ?", "YES/NO", MessageBoxButtons.YesNo);
-                if (dr == DialogResult.Yes)
+                if (txtTenKH.Text == "" || txtDiaChi.Text == "")
                 {
-                    command.ExecuteNonQuery();
-                    loaddata();
-                    MessageBox.Show("Sửa thông tin khách hàng thành công!");
+                    MessageBox.Show("Vui lòng nhập đầy đủ tên khách hàng và địa chỉ!");
                 }
-               
+                else
+                {
+                    command = connection.CreateCommand();
+                    command.CommandText = "update tb_KhachHang set TenKH=N'" + txtTenKH.Text + "',GioiTinh=N'" + cbGT.Text + "',NamSinh=CAST('" + dtNamSinh.Text + "' AS DATE), DiaChi=N'" + txtDiaChi.Text + "',SDT='" + txtSDT.Text + "', Email=N'" + txtEmail.Text + "' where MaKH='" + txtMaKH.Text + "'";
+                    DialogResult dr = MessageBox.Show("Bạn có muốn sửa thông tin khách hàng " + txtMaKH.Text + " ?", "YES/NO", MessageBoxButtons.YesNo);
+                    if (dr == DialogResult.Yes)
+                    {
+                        command.ExecuteNonQuery();
+                        loaddata();
+                        MessageBox.Show("Sửa thông tin khách hàng thành công!");
+                    }
+                }                                                   
             }
 
             catch
@@ -181,14 +187,23 @@ namespace QLBANHANG
 
         private void btnKhoiTao_Click(object sender, EventArgs e)
         {
-            enable(true);
+            
             try
             {
-                command = connection.CreateCommand();
-                command.CommandText = "insert into tb_KhachHang values ('" + txtMaKH.Text + "',N'" + txtTenKH.Text + "',N'" + cbGT.Text + "',CAST('" + dtNamSinh.Text + "' AS DATE),'" + txtSDT.Text + "',N'" + txtDiaChi.Text + "' , N'" + txtEmail.Text + "' )";
-                command.ExecuteNonQuery();
-                loaddata();
-                MessageBox.Show("Thêm khách hàng thành công!");
+                if (txtTenKH.Text == "" || txtDiaChi.Text == "" )
+                {
+                    MessageBox.Show("Vui lòng nhập đầy đủ tên khách hàng và địa chỉ!");
+                }
+                else
+                {
+                    command = connection.CreateCommand();
+                    command.CommandText = "insert into tb_KhachHang values ('" + txtMaKH.Text + "',N'" + txtTenKH.Text + "',N'" + cbGT.Text + "',CAST('" + dtNamSinh.Text + "' AS DATE),'" + txtSDT.Text + "',N'" + txtDiaChi.Text + "' , N'" + txtEmail.Text + "' )";
+                    command.ExecuteNonQuery();
+                    loaddata();
+                    MessageBox.Show("Thêm khách hàng thành công!");
+                    enable(true);
+                }
+              
             }
             catch
             {
