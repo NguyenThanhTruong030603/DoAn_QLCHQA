@@ -61,7 +61,7 @@ namespace QLBANHANG
         {
             connection = new SqlConnection(str);
             connection.Open();
-            loaddata();
+           
         }
     }
 }

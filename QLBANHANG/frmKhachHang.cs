@@ -9,10 +9,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-
 namespace QLBANHANG
 {
-    public partial class Form2 : Form
+    public partial class frmKhachHang : Form
     {
         SqlConnection connection;
         SqlCommand command;
@@ -22,30 +21,28 @@ namespace QLBANHANG
         void loaddata()
         {
             command = connection.CreateCommand();
-            command.CommandText = "select * from tb_NhanVien";
+            command.CommandText = "select * from tb_KhachHang";
             adapter.SelectCommand = command;
             table.Clear();
             adapter.Fill(table);
             dgvDS.DataSource = table;
 
         }
-        public Form2()
+
+     
+        public frmKhachHang()
         {
             InitializeComponent();
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void Form3_Load(object sender, EventArgs e)
         {
-
-        }
-
-        private void Form2_Load(object sender, EventArgs e)
-        {
-            txtTenNv.Focus();
+            
             connection = new SqlConnection(str);
             connection.Open();
             loaddata();
             cbGT.Text = "Nam";
+            txtTenKH.Focus();
         }
 
         void enable(Boolean a)
@@ -56,7 +53,19 @@ namespace QLBANHANG
             btnLuu.Enabled = !a;
             btnKoLuu.Enabled = !a;
         }
-
+        private void dgvDS_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            txtMaKH.ReadOnly = true;
+            int i;
+            i = dgvDS.CurrentRow.Index;
+            txtMaKH.Text = dgvDS.Rows[i].Cells[0].Value.ToString();
+            txtTenKH.Text = dgvDS.Rows[i].Cells[1].Value.ToString();
+            cbGT.Text = dgvDS.Rows[i].Cells[2].Value.ToString();
+            dtNamSinh.Text = dgvDS.Rows[i].Cells[3].Value.ToString();
+            txtSDT.Text = dgvDS.Rows[i].Cells[4].Value.ToString();
+            txtDiaChi.Text = dgvDS.Rows[i].Cells[5].Value.ToString();   
+            txtEmail.Text = dgvDS.Rows[i].Cells[6].Value.ToString();
+        }
         public class Invoice
         {
             private string connectionString = "Data Source=ADMIN\\MSSQLSERVER01;Initial Catalog=QL_CHQA;Integrated Security=True";
@@ -79,10 +88,10 @@ namespace QLBANHANG
                         int invoiceNumber = random.Next(1, 9999);
 
 
-                        invoiceCode = $"NV{invoiceNumber}";
+                        invoiceCode = $"KH{invoiceNumber}";
 
                         // Kiểm tra mã hóa đơn có tồn tại trong cơ sở dữ liệu không
-                        string query = $"SELECT COUNT(*) FROM tb_NhanVien WHERE MaNV = '{invoiceCode}'";
+                        string query = $"SELECT COUNT(*) FROM tb_KhachHang WHERE MaKH = '{invoiceCode}'";
                         SqlCommand command = new SqlCommand(query, connection);
                         int count = (int)command.ExecuteScalar();
 
@@ -100,29 +109,18 @@ namespace QLBANHANG
         private void btnThem_Click(object sender, EventArgs e)
         {
             enable(false);
-            txtTenNv.Clear();
-            txtMaNV.Clear();
-            txtDiaChi.Clear();
+            txtTenKH.Focus();
+            txtTenKH.Clear();
             txtSDT.Clear();
-            txtTenNv.Focus();
+            txtEmail.Clear();
+            txtDiaChi.Clear();
+            txtMaKH.Clear();
             
+
             Invoice invoice = new Invoice();
             string invoiceCode1 = invoice.GenerateInvoiceCode();
-            txtMaNV.Text = invoiceCode1;
+            txtMaKH.Text = invoiceCode1;
             
-        }
-
-        private void dtgvDS_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            txtMaNV.ReadOnly = true;
-            int i;
-            i = dgvDS.CurrentRow.Index;
-            txtMaNV.Text = dgvDS.Rows[i].Cells[0].Value.ToString();
-            txtTenNv.Text = dgvDS.Rows[i].Cells[1].Value.ToString();
-            cbGT.Text = dgvDS.Rows[i].Cells[2].Value.ToString();
-            dtNamSinh.Text = dgvDS.Rows[i].Cells[3].Value.ToString();
-            txtDiaChi.Text = dgvDS.Rows[i].Cells[4].Value.ToString();
-            txtSDT.Text = dgvDS.Rows[i].Cells[5].Value.ToString();
         }
 
         private void btnXoa_Click(object sender, EventArgs e)
@@ -130,20 +128,20 @@ namespace QLBANHANG
             try
             {
                 command = connection.CreateCommand();
-                command.CommandText = "delete from tb_NhanVien where MaNV ='" + txtMaNV.Text + "'";
-                DialogResult dr = MessageBox.Show("Bạn có muốn xóa nhân viên " + txtMaNV.Text + " ?", "YES/NO", MessageBoxButtons.YesNo);
+                command.CommandText = "delete from tb_KhachHang where MaKH ='" + txtMaKH.Text + "'";
+                DialogResult dr = MessageBox.Show("Bạn có muốn xóa thông tin khách hàng " + txtMaKH.Text + " ?", "YES/NO", MessageBoxButtons.YesNo);
                 if (dr == DialogResult.Yes)
                 {
                     command.ExecuteNonQuery();
                     loaddata();
 
-                    MessageBox.Show("Xóa nhân viên thành công!");
+                    MessageBox.Show("Xóa khách hàng thành công!");
                 }
                 
             }
             catch
             {
-                MessageBox.Show("Xóa nhân viên không thành công!");
+                MessageBox.Show("Xóa khách hàng không thành công!");
             }
         }
 
@@ -151,80 +149,92 @@ namespace QLBANHANG
         {
             try
             {
-                if (txtTenNv.Text == "" || txtDiaChi.Text == "" || txtSDT.Text == "")
+                if (txtTenKH.Text == "" || txtDiaChi.Text == "")
                 {
-                    MessageBox.Show("Vui lòng nhập đầy đủ thông tin!");
+                    MessageBox.Show("Vui lòng nhập đầy đủ tên khách hàng và địa chỉ!");
                 }
                 else
                 {
                     command = connection.CreateCommand();
-                    command.CommandText = "update tb_NhanVien set TenNV=N'" + txtTenNv.Text + "',GioiTinh=N'" + cbGT.Text + "',NamSinh=CAST('" + dtNamSinh.Text + "' AS DATE), DiaChi=N'" + txtDiaChi.Text + "',SDT='" + txtSDT.Text + "' where MaNV='" + txtMaNV.Text + "'";
-                    DialogResult dr = MessageBox.Show("Bạn có muốn sửa thông tin nhân viên " + txtMaNV.Text + " ?", "YES/NO", MessageBoxButtons.YesNo);
+                    command.CommandText = "update tb_KhachHang set TenKH=N'" + txtTenKH.Text + "',GioiTinh=N'" + cbGT.Text + "',NamSinh=CAST('" + dtNamSinh.Text + "' AS DATE), DiaChi=N'" + txtDiaChi.Text + "',SDT='" + txtSDT.Text + "', Email=N'" + txtEmail.Text + "' where MaKH='" + txtMaKH.Text + "'";
+                    DialogResult dr = MessageBox.Show("Bạn có muốn sửa thông tin khách hàng " + txtMaKH.Text + " ?", "YES/NO", MessageBoxButtons.YesNo);
                     if (dr == DialogResult.Yes)
                     {
                         command.ExecuteNonQuery();
                         loaddata();
-                        MessageBox.Show("Sửa thông tin nhân viên thành công!");
+                        MessageBox.Show("Sửa thông tin khách hàng thành công!");
                     }
-                }
-                
-                
+                }                                                   
             }
 
             catch
             {
-                MessageBox.Show("Sửa thông tin nhân viên không thành công!");
+                MessageBox.Show("Sửa thông tin khách hàng không thành công!");
             }
         }
 
-        
+        private void button1_Click(object sender, EventArgs e)
+        {
+            
+            txtMaKH.Text = "";
+            txtTenKH.Text = "";
+            cbGT.Text = "";
+            txtDiaChi.Text = "";
+            txtSDT.Text = "";
+            dtNamSinh.Text = "";
+            txtEmail.Text = "";
+        }
 
-        private void btnLuu_Click(object sender, EventArgs e)
+        private void btnKhoiTao_Click(object sender, EventArgs e)
         {
             
             try
             {
-                if (txtTenNv.Text == "" || txtDiaChi.Text == "" || txtSDT.Text == "")
+                if (txtTenKH.Text == "" || txtDiaChi.Text == "" )
                 {
-                    MessageBox.Show("Vui lòng nhập đầy đủ thông tin!");
-                }                
+                    MessageBox.Show("Vui lòng nhập đầy đủ tên khách hàng và địa chỉ!");
+                }
                 else
                 {
                     command = connection.CreateCommand();
-                    command.CommandText = "insert into tb_NhanVien values ('" + txtMaNV.Text + "',N'" + txtTenNv.Text + "',N'" + cbGT.Text + "',CAST('" + dtNamSinh.Text + "' AS DATE),N'" + txtDiaChi.Text + "' , '" + txtSDT.Text + "' )";
+                    command.CommandText = "insert into tb_KhachHang values ('" + txtMaKH.Text + "',N'" + txtTenKH.Text + "',N'" + cbGT.Text + "',CAST('" + dtNamSinh.Text + "' AS DATE),'" + txtSDT.Text + "',N'" + txtDiaChi.Text + "' , N'" + txtEmail.Text + "' )";
                     command.ExecuteNonQuery();
                     loaddata();
-                    MessageBox.Show("Thêm nhân viên thành công!");
+                    MessageBox.Show("Thêm khách hàng thành công!");
                     enable(true);
                 }
-               
+              
             }
             catch
             {
-                MessageBox.Show("Thêm nhân viên không thành công!");
+                MessageBox.Show("Thêm khách hàng không thành công!");
+                enable(true);
             }
         }
 
-        private void btnKoLuu_Click(object sender, EventArgs e)
+        private void button1_Click_1(object sender, EventArgs e)
         {
             enable(true);
-            txtTenNv.Clear();
-            txtMaNV.Clear();
-            txtDiaChi.Clear();
+            txtTenKH.Clear();
             txtSDT.Clear();
-            cbGT.Text = "â";
+            txtEmail.Clear();
+            txtDiaChi.Clear();
+            txtMaKH.Clear();
         }
 
         private void txtTimKiem_TextChanged(object sender, EventArgs e)
         {
             command = connection.CreateCommand();
-            command.CommandText = "select * from tb_NhanVien where MaNV like '%"+txtTimKiem+"%'";
+            command.CommandText = "select * from tb_KhachHang where MaKH like '%"+txtTimKiem.Text+"%'";
             adapter.SelectCommand = command;
             table.Clear();
             adapter.Fill(table);
             dgvDS.DataSource = table;
         }
 
-        
+        private void label9_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

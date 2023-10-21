@@ -1,6 +1,6 @@
 ﻿namespace QLBANHANG
 {
-    partial class Form4
+    partial class frmHoaDon
     {
         /// <summary>
         /// Required designer variable.

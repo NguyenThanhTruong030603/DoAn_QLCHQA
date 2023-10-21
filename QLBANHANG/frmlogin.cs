@@ -46,7 +46,7 @@ namespace QLBANHANG
                 if (reader.Read() == true)
                 {
 
-                    frmTT form = new frmTT();
+                    frmTrangChu form = new frmTrangChu(tk);
                     this.Hide();
                     //MessageBox.Show("Đăng nhập thành công!");
                     form.ShowDialog();
@@ -78,6 +78,11 @@ namespace QLBANHANG
             connection = new SqlConnection(str);
             connection.Open();
             txtTaikhoan.Focus();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

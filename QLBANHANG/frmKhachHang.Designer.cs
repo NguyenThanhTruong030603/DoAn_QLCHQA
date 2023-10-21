@@ -1,6 +1,6 @@
 ﻿namespace QLBANHANG
 {
-    partial class Form3
+    partial class frmKhachHang
     {
         /// <summary>
         /// Required designer variable.

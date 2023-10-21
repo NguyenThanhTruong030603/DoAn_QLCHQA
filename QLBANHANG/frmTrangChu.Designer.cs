@@ -1,6 +1,6 @@
 ﻿namespace QLBANHANG
 {
-    partial class frmTT
+    partial class frmTrangChu
     {
         /// <summary>
         /// Required designer variable.
@@ -207,8 +207,9 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(102, 23);
             this.button1.TabIndex = 11;
-            this.button1.Text = "Chào mừng!!!";
+            this.button1.Text = "Đăng xuất!!!";
             this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label1
             // 
@@ -251,7 +252,7 @@
             this.pictureBox2.TabIndex = 0;
             this.pictureBox2.TabStop = false;
             // 
-            // frmTT
+            // frmTrangChu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -261,9 +262,10 @@
             this.Controls.Add(this.panel_body);
             this.Controls.Add(this.panel_top);
             this.Controls.Add(this.panel_left);
-            this.Name = "frmTT";
+            this.Name = "frmTrangChu";
             this.Text = "frmMenu";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmTT_FormClosing);
+            this.Load += new System.EventHandler(this.frmTT_Load);
             this.panel_left.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel_top.ResumeLayout(false);

@@ -10,11 +10,13 @@ using System.Windows.Forms;
 
 namespace QLBANHANG
 {
-    public partial class frmTT : Form
+    public partial class frmTrangChu : Form
     {
-        public frmTT()
+        string tk = "";
+        public frmTrangChu(string tk)
         {
             InitializeComponent();
+            this.tk = tk;
         }
         private Form CurrentFormChild;
         private void OpenChildForm(Form childForm)
@@ -41,35 +43,49 @@ namespace QLBANHANG
        
         private void btnTHONGKE_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new frmThongKe());
+            if (tk == "admin")
+            {
+                OpenChildForm(new frmThongKe());
 
-            label1.Text = btnTHONGKE.Text;
+                label1.Text = btnTHONGKE.Text;
+            }
+            else
+            {
+                MessageBox.Show("Bạn không đủ quyền để xem!");
+            }    
         }
 
         private void btnHH_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new Form1());
+            OpenChildForm(new frmHangHoa());
 
             label1.Text = btnHH.Text;
         }
 
         private void btnNV_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new Form2());
+            if (tk == "admin")
+            {
+                OpenChildForm(new frmNhanVien());
 
             label1.Text = btnNV.Text;
+            }
+            else
+            {
+                MessageBox.Show("Bạn không đủ quyền để xem!");
+            }
         }
 
         private void btnKH_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new Form3());
+            OpenChildForm(new frmKhachHang());
 
             label1.Text = btnKH.Text;
         }
 
         private void btnHD_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new Form4());
+            OpenChildForm(new frmHoaDon());
 
             label1.Text = btnHD.Text;
         }
@@ -85,7 +101,8 @@ namespace QLBANHANG
 
         private void label1_Click(object sender, EventArgs e)
         {
-
+            
+            
         }
 
         private void frmTT_FormClosing(object sender, FormClosingEventArgs e)
@@ -95,6 +112,20 @@ namespace QLBANHANG
             {
                 e.Cancel=true;
             }
+        }
+
+        private void frmTT_Load(object sender, EventArgs e)
+        {
+
+        }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            frmlogin form = new frmlogin();
+            this.Hide();
+            this.FormClosing -= frmTT_FormClosing;
+
+            form.ShowDialog();
+            this.Close();
         }
     }
 }

@@ -14,7 +14,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace QLBANHANG
 {
-    public partial class Form4 : Form
+    public partial class frmHoaDon : Form
     {
         SqlConnection connection;
         SqlCommand command;
@@ -64,7 +64,7 @@ namespace QLBANHANG
 
             
         }
-        public Form4()
+        public frmHoaDon()
         {
             InitializeComponent();
             
@@ -311,14 +311,7 @@ namespace QLBANHANG
         private void btnSave_Click(object sender, EventArgs e)
         {
 
-                cbNhanVien.Enabled = false;
-                cbKhachHang.Enabled = false;
-                cbtenHH.Enabled = true;
-                txtSL.Enabled = true;
-                btnThem.Enabled = true;
-                btnBot.Enabled = true;
-                btnSave.Enabled = false;
-            cbtenHH.Focus();
+
                
 
                 try
@@ -329,10 +322,26 @@ namespace QLBANHANG
                     loaddata();
                     MessageBox.Show("Thêm hóa đơn thành công!");
                     loaddata2();
-            }
+                    cbNhanVien.Enabled = false;
+                    cbKhachHang.Enabled = false;
+                    cbtenHH.Enabled = true;
+                    txtSL.Enabled = true;
+                    btnThem.Enabled = true;
+                    btnBot.Enabled = true;
+                    btnSave.Enabled = false;
+                    cbtenHH.Focus();
+                }
                 catch
                 {
                     MessageBox.Show("Thêm hóa đơn không thành công!");
+                    cbNhanVien.Enabled = false;
+                    cbKhachHang.Enabled = false;
+                    cbtenHH.Enabled = true;
+                    txtSL.Enabled = true;
+                    btnThem.Enabled = true;
+                    btnBot.Enabled = true;
+                    btnSave.Enabled = false;
+                    cbtenHH.Focus();
                 }
 
             

@@ -13,7 +13,7 @@ using System.Windows.Input;
 
 namespace QLBANHANG
 {
-    public partial class Form1 : Form
+    public partial class frmHangHoa : Form
     {
         SqlConnection connection;
         SqlCommand command;
@@ -30,7 +30,7 @@ namespace QLBANHANG
             dgvHH.DataSource = table;
             
         }
-        public Form1()
+        public frmHangHoa()
         {
             InitializeComponent();
         }
@@ -248,6 +248,7 @@ namespace QLBANHANG
             catch
             {
                 MessageBox.Show("Thêm hàng hóa không thành công!");
+                enable(true);
             }
 
         }

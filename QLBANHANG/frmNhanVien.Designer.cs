@@ -1,6 +1,6 @@
 ﻿namespace QLBANHANG
 {
-    partial class Form2
+    partial class frmNhanVien
     {
         /// <summary>
         /// Required designer variable.
@@ -133,7 +133,7 @@
             this.txtMaNV.Name = "txtMaNV";
             this.txtMaNV.ReadOnly = true;
             this.txtMaNV.Size = new System.Drawing.Size(121, 26);
-            this.txtMaNV.TabIndex = 4;
+            this.txtMaNV.TabIndex = 0;
             this.txtMaNV.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // label6

@@ -1,6 +1,6 @@
 ﻿namespace QLBANHANG
 {
-    partial class Form1
+    partial class frmHangHoa
     {
         /// <summary>
         /// Required designer variable.
@@ -181,7 +181,7 @@
             this.txtMaHH.Name = "txtMaHH";
             this.txtMaHH.ReadOnly = true;
             this.txtMaHH.Size = new System.Drawing.Size(132, 26);
-            this.txtMaHH.TabIndex = 4;
+            this.txtMaHH.TabIndex = 0;
             // 
             // txtTen
             // 

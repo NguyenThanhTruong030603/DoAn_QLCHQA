@@ -54,6 +54,7 @@
             this.label1.Size = new System.Drawing.Size(199, 39);
             this.label1.TabIndex = 0;
             this.label1.Text = "Đăng Nhập";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // txtTaikhoan
             // 
