@@ -374,6 +374,15 @@ namespace QLBANHANG
         {
 
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Form1 form = new Form1(txtMa.Text);
+           
+            //MessageBox.Show("Đăng nhập thành công!");
+            form.ShowDialog();
+            
+        }
     }
 
     public class Invoice

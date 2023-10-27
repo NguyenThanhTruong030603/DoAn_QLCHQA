@@ -48,6 +48,7 @@
             this.cbHangHoa = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.btnBot = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.btnThem = new System.Windows.Forms.Button();
             this.txtSL = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -223,6 +224,7 @@
             this.groupBox3.Controls.Add(this.cbHangHoa);
             this.groupBox3.Controls.Add(this.label5);
             this.groupBox3.Controls.Add(this.btnBot);
+            this.groupBox3.Controls.Add(this.button1);
             this.groupBox3.Controls.Add(this.btnThem);
             this.groupBox3.Controls.Add(this.txtSL);
             this.groupBox3.Controls.Add(this.label7);
@@ -305,6 +307,18 @@
             this.btnBot.Text = "Bớt";
             this.btnBot.UseVisualStyleBackColor = true;
             this.btnBot.Click += new System.EventHandler(this.btnBot_Click);
+            // 
+            // button1
+            // 
+            this.button1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Location = new System.Drawing.Point(394, 129);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 58);
+            this.button1.TabIndex = 8;
+            this.button1.Text = "IN";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // btnThem
             // 
@@ -428,7 +442,7 @@
             this.label11.Size = new System.Drawing.Size(32, 32);
             this.label11.TabIndex = 15;
             // 
-            // Form4
+            // frmHoaDon
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -443,7 +457,7 @@
             this.Controls.Add(this.groupBox1);
             this.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "Form4";
+            this.Name = "frmHoaDon";
             this.Text = "frmHoaDon";
             this.Load += new System.EventHandler(this.Form4_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvDSHD)).EndInit();
@@ -493,5 +507,6 @@
         private System.Windows.Forms.TextBox txtTimKiem;
         private System.Windows.Forms.DataGridView dgvDSHH;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Button button1;
     }
 }
